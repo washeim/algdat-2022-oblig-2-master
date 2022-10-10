@@ -4,8 +4,10 @@ package no.oslomet.cs.algdat.Oblig2;
 ////////////////// class DobbeltLenketListe //////////////////////////////
 
 
+import java.sql.SQLOutput;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.Objects;
 
 
 public class DobbeltLenketListe<T> implements Liste<T> {
@@ -36,12 +38,28 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     private int antall;            // antall noder i listen
     private int endringer;         // antall endringer i listen
 
+
     public DobbeltLenketListe() {
-        throw new UnsupportedOperationException();
+        return;
     }
 
     public DobbeltLenketListe(T[] a) {
-        throw new UnsupportedOperationException();
+        Objects.requireNonNull(a, " a er null!");
+        for (int i = 0; i < a.length; i++) {
+            if (a[i] != null) {
+                Node nyNode = new Node(a[i]);
+                if (hode == null) {
+                    hode = hale = nyNode;
+                    hode.forrige = null;
+                    hale.neste = null;
+                } else {
+                    hale.neste = nyNode;
+                    nyNode.forrige = hale;
+                    hale = nyNode;
+                    hale.neste = null;
+                }
+            }
+        }
     }
 
     public Liste<T> subliste(int fra, int til) {
@@ -50,12 +68,28 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public int antall() {
-        throw new UnsupportedOperationException();
+        int teller = 0;
+        Node gjeldene = hode;
+        while (gjeldene != null) {
+            teller++;
+            gjeldene = gjeldene.neste;
+        }
+        return teller;
     }
 
     @Override
     public boolean tom() {
-        throw new UnsupportedOperationException();
+        int teller = 0;
+        Node gjeldene = hode;
+        while (gjeldene != null) {
+            gjeldene = gjeldene.neste;
+            teller++;
+        }
+        if (teller > 0){
+            return false;
+        } else {
+            return true;
+        }
     }
 
     @Override
