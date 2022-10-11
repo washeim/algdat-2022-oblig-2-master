@@ -4,9 +4,6 @@ package no.oslomet.cs.algdat.Oblig2;
 ////////////////// class DobbeltLenketListe //////////////////////////////
 
 
-import java.sql.Array;
-import java.sql.SQLOutput;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Objects;
@@ -35,6 +32,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     // instansvariabler
+    private Node<T> valgt;
     private Node<T> hode;          // peker til den første i listen
     private Node<T> hale;          // peker til den siste i listen
     private int antall;            // antall noder i listen
@@ -79,6 +77,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             teller++;
             gjeldene = gjeldene.neste;
         }
+        antall = teller;
         return teller;
     }
 
@@ -114,6 +113,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             hale = newNode;
             hale.neste = null;
         }
+        endringer++;
         return true;
     }
 
@@ -129,26 +129,34 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     //Oppgave 3
     private Node<T> finnNode(int indeks) {
-        Node gjeldene = hode;
-        int count = 0;
-        int sjekk = antall()/2;
+        Node gjeldene = valgt;
+        int sjekk = antall/2;
+
         if (indeks < sjekk) {
-            for (int i = 0; i < indeks + 1; i++) {
+            gjeldene = hode;
+            for (int i = 0; i < indeks; i++) {
                 gjeldene = gjeldene.neste;
             }
         }
         if (indeks  >= sjekk) {
             gjeldene = hale;
-            for (int i = this.antall(); i > indeks; i--) {
+            for (int i = this.antall(); i > indeks+1; i--) {
                 gjeldene = gjeldene.forrige;
             }
         }
-        return gjeldene;
+        valgt = gjeldene;
+        return valgt;
     }
 
     @Override
     public T hent(int indeks) {
-        throw new NullPointerException();
+        T hentet;
+        try {
+            indeksKontroll(indeks, false);
+        } catch (Exception IndexOutOfBoundsException){melding(indeks);}
+        Node funnet = finnNode(indeks);
+        hentet = valgt.verdi;
+        return hentet;
     }
 
     @Override
@@ -158,9 +166,20 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T oppdater(int indeks, T nyverdi) {
-        Node newNode = new Node(nyverdi);
-        throw new UnsupportedOperationException();
-
+        Node<T> newNode = new Node(nyverdi);
+        Node<T> erstatt = finnNode(indeks);
+        T gammleVerdi = erstatt.verdi;
+        try{
+            indeksKontroll(indeks, false);
+            if (nyverdi != null){
+                gammleVerdi = erstatt.verdi;
+                erstatt.verdi= newNode.verdi;
+            }
+        } catch (Exception IndexOutOfBoundsException) {
+            melding(indeks);
+        }
+        endringer++;
+        return gammleVerdi;
     }
 
     @Override
