@@ -8,11 +8,9 @@ public class EgenTest {
     ////// Oppgave 1 /////////////////////
     @org.junit.jupiter.api.Test
     void oppgave1() {
-        DobbeltLenketListe<Integer> liste = new DobbeltLenketListe<>();
-        System.out.println(liste.toString() + " " + liste.omvendtString());
-        for (int i = 1; i <= 3; i++) {
-            liste.leggInn(i);
-            System.out.println(liste.toString() + " " + liste.omvendtString());
+        Character[] c = {'A','B','C','D','E','F','G','H','I','J',};
+        DobbeltLenketListe<Character> liste = new DobbeltLenketListe<>(c);
+        System.out.println("123");
+        System.out.println(liste.hent(2));
         }
-    }
 }
