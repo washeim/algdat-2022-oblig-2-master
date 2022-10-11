@@ -18,3 +18,7 @@ I oppgaven har vi hatt følgende arbeidsfordeling:
 I oppgave 1 så gikk vi frem ved å ...
 
 I oppgave 2 så brukte vi en ... til å ...
+
+I oppgave 4 lagret jeg hodet i en node. Deretter en variabel til indexen. Gårigjennom listen med en while løkke,
+så lengde verdien av noden min ikke er lik verdien og ikke null så legger jeg til en på telleren min pos.
+Deretter returnerer jeg -1 hvis den finnes i lista eller returnerer telleren hvis den finnes. 

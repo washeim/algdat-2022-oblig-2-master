@@ -81,6 +81,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         for (int i = 0; i < avstand; i++) {
             list.leggInn(hent(fra + i));
         }
+        antall = avstand;
         return list;
     }
 
@@ -175,7 +176,15 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public int indeksTil(T verdi) {
-        throw new UnsupportedOperationException();
+        Node temp = hode;
+        int pos = 0;
+        while (temp.verdi != verdi && temp.neste != null) {
+            pos++;
+            temp = temp.neste;
+        }
+        if (temp.verdi != verdi)
+            return -1;
+        return (pos);
     }
 
     @Override
