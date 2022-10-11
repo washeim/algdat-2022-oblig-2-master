@@ -74,6 +74,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             melding(fra);
             melding(til);
         }
+        if (fra < 0 || til > antall) {
+            throw new IndexOutOfBoundsException ("Fra og Til utenfor rekkevidde");
+        }
         int avstand = til-fra;
         for (int i = 0; i < avstand; i++) {
             list.leggInn(hent(fra + i));
