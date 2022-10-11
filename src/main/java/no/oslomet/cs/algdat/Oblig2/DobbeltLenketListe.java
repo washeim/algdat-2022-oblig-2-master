@@ -6,6 +6,7 @@ package no.oslomet.cs.algdat.Oblig2;
 
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -64,9 +65,20 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
 
     //OPPGAVE 3 B)
-
     public Liste<T> subliste(int fra, int til) {
-        throw new UnsupportedOperationException();
+        Liste<T> list = new DobbeltLenketListe<>();
+        try {
+            indeksKontroll(fra, false);
+            indeksKontroll(til, false);
+        } catch (Exception IndexOutOfBoundsException) {
+            melding(fra);
+            melding(til);
+        }
+        int avstand = til-fra;
+        for (int i = 0; i < avstand; i++) {
+            list.leggInn(hent(fra + i));
+        }
+        return list;
     }
 
     @Override
@@ -129,11 +141,10 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     //Oppgave 3
     private Node<T> finnNode(int indeks) {
-        Node gjeldene = valgt;
+        Node gjeldene = hode;
         int sjekk = antall/2;
 
         if (indeks < sjekk) {
-            gjeldene = hode;
             for (int i = 0; i < indeks; i++) {
                 gjeldene = gjeldene.neste;
             }
