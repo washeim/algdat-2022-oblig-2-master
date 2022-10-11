@@ -133,9 +133,14 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         return true;
     }
 
+    //Oppgave 5
     @Override
     public void leggInn(int indeks, T verdi) {
-        throw new UnsupportedOperationException();
+        if (indeks >= 0 && indeks < antall){
+
+        } else {
+            throw new NullPointerException();
+        }
     }
 
     @Override
@@ -209,13 +214,18 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         return gammleVerdi;
     }
 
+    //Oppgave 6
     @Override
     public boolean fjern(T verdi) {
+
+
         throw new UnsupportedOperationException();
     }
 
     @Override
     public T fjern(int indeks) {
+
+
         throw new UnsupportedOperationException();
     }
 
@@ -287,6 +297,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             iteratorendringer = endringer;  // teller endringer
         }
 
+
+        //Oppgave 8
         private DobbeltLenketListeIterator(int indeks) {
             throw new UnsupportedOperationException();
         }
