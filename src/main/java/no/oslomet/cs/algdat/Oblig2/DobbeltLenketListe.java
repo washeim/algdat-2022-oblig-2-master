@@ -4,7 +4,9 @@ package no.oslomet.cs.algdat.Oblig2;
 ////////////////// class DobbeltLenketListe //////////////////////////////
 
 
+import java.sql.Array;
 import java.sql.SQLOutput;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Objects;
@@ -61,6 +63,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             }
         }
     }
+
+
+    //OPPGAVE 3 B)
 
     public Liste<T> subliste(int fra, int til) {
         throw new UnsupportedOperationException();
@@ -125,6 +130,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     //Oppgave 3
     private Node<T> finnNode(int indeks) {
         Node gjeldene = hode;
+        int count = 0;
         int sjekk = antall()/2;
         if (indeks < sjekk) {
             for (int i = 0; i < indeks + 1; i++) {
@@ -133,7 +139,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
         if (indeks  >= sjekk) {
             gjeldene = hale;
-            for (int i = antall(); i > indeks; i--) {
+            for (int i = this.antall(); i > indeks; i--) {
                 gjeldene = gjeldene.forrige;
             }
         }
@@ -142,9 +148,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T hent(int indeks) {
-        indeksKontroll(indeks, false);
-        Node hentet = finnNode(indeks);
-        return (T) hentet;
+        throw new NullPointerException();
     }
 
     @Override
@@ -154,8 +158,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T oppdater(int indeks, T nyverdi) {
-        T nyVerdi = hent(indeks);
-        return nyVerdi;
+        Node newNode = new Node(nyverdi);
+        throw new UnsupportedOperationException();
+
     }
 
     @Override
