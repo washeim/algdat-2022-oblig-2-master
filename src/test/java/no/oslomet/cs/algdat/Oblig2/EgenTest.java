@@ -14,8 +14,7 @@ public class EgenTest {
         System.out.println(liste.antall() + " " + liste.tom());
         System.out.println(liste);
         System.out.println(liste.hent(4));
-
-
-
+        liste.oppdater(4, '.');
+        System.out.println(liste.hent(4));
     }
 }
