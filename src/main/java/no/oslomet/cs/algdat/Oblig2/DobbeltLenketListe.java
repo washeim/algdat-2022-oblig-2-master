@@ -185,6 +185,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         return gjeldene;
     }
 
+
     @Override
     public T hent(int indeks) {
         T hentet;
@@ -197,7 +198,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public int indeksTil(T verdi) {
-        Node temp = hode;
+        Node<T> temp = hode;
         int pos = 0;
         while (temp.verdi != verdi && temp.neste != null) {
             pos++;
@@ -228,6 +229,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     //Oppgave 6
     @Override
     public boolean fjern(T verdi) {
+        endringer++;
+        antall--;
         int indeks = indeksTil(verdi);
         hent(indeks);
         Node temp = hode, forrige = null;
@@ -242,8 +245,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
         if (verdi == null)
             throw new UnsupportedOperationException();
-        endringer++;
-        antall--;
         return true;
     }
     //Boolean fjern fungerer ikke, boolean indeks fungerer...
