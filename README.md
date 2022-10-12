@@ -34,3 +34,9 @@ I oppgave 5 sjekker jeg om feil i indeksen. Så om den er 0 eller ikke. Hvis den
 Hvis den er over 0 lager jeg en midlertidig node som er hode, bruker for løkke til å gå helt frem til indeks noden og gjør
 den midlertidig noden til neste i lista. Når for løkka er ferdig gjør jeg den nye LeggInn noden til lik den midlertidige, og gire den neste og forrige verdier.
 
+I oppgave 6 fikk jeg kun T fjern til å fungere ved å bruke boolean fjern inni funksjonen. boolean fjern lagde jeg ved først en if sjekk
+for å fjerne hodet hvis det er der verdien ligger. Og så en while løkke for å gå helt til jeg når verdien. Da fjerner jeg verdien og setter nodene rundt
+sine forrige og neste verdi til hverandres verdier. T fjern løste jeg ved å kjøre en hent() og deretter en fjern av denne verdien som blir hentet.
+
+I oppgave 8 løste jeg den ved å sjekke om endringerne i next() var riktige med en if sjekk, og throwet exceptions hvis det ikke stemte.
+Så gjorde jeg at iterator() returnerte en instans av interatorklassen. I DobbeltLenketListeIterator gjorde jeg en kontroll, og returnerte en instans av iteratorklassen.
