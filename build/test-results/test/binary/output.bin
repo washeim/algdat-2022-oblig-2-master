@@ -1,3 +1,19 @@
- [A, B, C, D, E, F, G, H, I, J]
-#[A, B, C, X, D, E, F, G, H, I, J]
- [A, C, X, D, E, F, G, H, I, J]
+0Oppgave 3a: Dette (3177 ms) gikk altfor sakte!
+5            Har du kodet metoden finnNode() riktig?
+5Oppgave 3c: Metoden hent() kaster feil type unntak!
+$Oppgave 3d: Feil i indeks-sjekken!
+$Oppgave 3f: Feil i indeks-sjekken!
+6Oppgave 3j: Ikke tillatt med nullverdier i oppdater!
+=Oppgave 3l: En liste med fire verdier har ikke indeks lik 4
+>Oppgave 3å3: Det skal kastes et unntak når fra er negativ!
+-Oppgave 4a: Stygg feil! Du MÅ bruke equals
+9            og ikke == i sammenligningen i indeksTil()!
+5Oppgave 5b: Kaster feil type unntak for indeksfeil!
+8Oppgave 5d: Metoden leggInn() kaster feil type unntak!
+5Oppgave 5e: Ikke tillatt å legge inn null-verdier!
+'Oppgave 5i: Feil i metoden leggInn()!
+'Oppgave 5j: Feil i metoden leggInn()!
+/Oppgave 6b: Indekssjekken kaster feil unntak!
+#Oppgave 6c: Indeks 7 finnes ikke!
+0Oppgave 6f: Indekssjekken kaster feil unntak!!
+;Oppgave 8a: Skal kastes unntak for next() i en tom liste!
