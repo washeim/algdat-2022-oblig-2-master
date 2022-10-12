@@ -11,9 +11,8 @@ public class EgenTest {
     void oppgave1() {
         Character[] c = {'A','B','C','D','E','F','G','H','I','J',};
         DobbeltLenketListe<Character> liste = new DobbeltLenketListe<>(c);
-        System.out.println(liste.subliste(3,8)); // [D, E, F, G, H]
-        System.out.println(liste.subliste(5,5)); // []
-        System.out.println(liste.subliste(8,liste.antall())); // [I, J]
-        System.out.println(liste.indeksTil('A'));
+        System.out.println(liste.leggInn('C'));
+        System.out.println(liste.toString());
+        System.out.println(liste.antall());
     }
 }

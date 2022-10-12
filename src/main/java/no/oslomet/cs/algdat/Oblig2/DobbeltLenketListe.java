@@ -136,10 +136,27 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     //Oppgave 5
     @Override
     public void leggInn(int indeks, T verdi) {
-        if (indeks >= 0 && indeks < antall){
-
+        Node newNode = new Node(verdi);
+        if (indeks < 0) {
+            throw new NullPointerException("Feil indeks");
+        }
+        if (indeks == 0) {
+            newNode.neste = hode;
+            hode = newNode;
+            antall++;
+            endringer++;
         } else {
-            throw new NullPointerException();
+            Node temp = new Node(null);
+            temp = hode;
+            for (int i = 1; i < indeks-1; i++) {
+                if (temp != null) {
+                    temp = temp.neste;
+                }
+            }
+            if (temp != null) {
+                newNode.neste = temp.neste;
+                temp.neste = newNode;
+            }
         }
     }
 
@@ -168,8 +185,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 gjeldene = gjeldene.forrige;
             }
         }
-        valgt = gjeldene;
-        return valgt;
+        return gjeldene;
     }
 
     @Override
