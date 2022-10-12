@@ -12,7 +12,7 @@ Alene.
 
 I oppgave 1 lagde jeg en teller og en ny node som er like hode. Deretter med en while løkke gjør jeg noden til neste så lenge verdien ikke er null. Legger til en på teller for hver gang while løkken skjer. I tom bruker jeg samme while løkke og teller opp hvor mange ganger while skjer for å se om den er tom eller ikke. DobbeltLenketListe sjekker om verdiene er gyldige, deretter bruker en for loop av hvor mange elemter det er i tabellen. Den lager en ny node og sjekker om listen har et hode eller ikke. Hvis den har det så legger den noden som neste element. 
 
-I oppgave 2 sjekker jeg først om deet er noe i listen. Deretter med en while løkke legger til innholdet av hver node inn i en stringbuilder helt til neste noden ikke har noe verdi.  I omvendt gjør jeg akkurat det samme men begynner fra halen og jobber fram til hodet. LeggInn sjekker først om verdien er gyldig, deretter om det er noen verdier i listen. Hvis det ikke er det blior nye verdien hodet, hvis ikke blir den lagt inn som hale.
+I oppgave 2 sjekker jeg først om deet er noe i listen. Deretter med en while løkke legger til innholdet av hver node inn i en stringbuilder helt til neste noden ikke har noe verdi.  I omvendt gjør jeg akkurat det samme men begynner fra halen og jobber fram til hodet. LeggInn sjekker først om verdien er gyldig, deretter om det er noen verdier i listen. Hvis det ikke er det blior nye verdien hodet, hvis ikke blir den lagt inn som hale. Legger til en i endringer til slutt.
 
 I oppgave 3 
 
