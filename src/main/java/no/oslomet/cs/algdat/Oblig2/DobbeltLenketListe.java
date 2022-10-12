@@ -4,10 +4,7 @@ package no.oslomet.cs.algdat.Oblig2;
 ////////////////// class DobbeltLenketListe //////////////////////////////
 
 
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 
 public class DobbeltLenketListe<T> implements Liste<T> {
@@ -136,8 +133,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     //Oppgave 5
     @Override
     public void leggInn(int indeks, T verdi) {
+        antall();
         Node newNode = new Node(verdi);
-        if (indeks < 0) {
+        if (indeks < 0 || indeks>antall) {
             throw new NullPointerException("Feil indeks");
         }
         if (indeks == 0) {
@@ -146,8 +144,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             antall++;
             endringer++;
         } else {
-            Node temp = new Node(null);
-            temp = hode;
+            Node temp = hode;
             for (int i = 1; i < indeks-1; i++) {
                 if (temp != null) {
                     temp = temp.neste;
@@ -156,7 +153,10 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             if (temp != null) {
                 newNode.neste = temp.neste;
                 temp.neste = newNode;
+                newNode.forrige = temp;
             }
+            antall++;
+            endringer++;
         }
     }
 
@@ -185,6 +185,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 gjeldene = gjeldene.forrige;
             }
         }
+        valgt = gjeldene;
         return gjeldene;
     }
 
@@ -194,7 +195,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         try {
             indeksKontroll(indeks, false);
         } catch (Exception IndexOutOfBoundsException){melding(indeks);}
-        Node funnet = finnNode(indeks);
+        finnNode(indeks);
         hentet = valgt.verdi;
         return hentet;
     }
@@ -233,16 +234,31 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     //Oppgave 6
     @Override
     public boolean fjern(T verdi) {
-
-
-        throw new UnsupportedOperationException();
+        int indeks = indeksTil(verdi);
+        hent(indeks);
+        Node temp = hode, forrige = null;
+        if (temp != null && temp.verdi == verdi) {
+            hode = null;
+            forrige.neste = temp.neste;
+        }
+        while (temp != null && temp.verdi != verdi) {
+            forrige = temp;
+            temp = temp.neste;
+            forrige.neste = temp.neste;
+        }
+        if (verdi == null)
+            throw new UnsupportedOperationException();
+        endringer++;
+        antall--;
+        return true;
     }
+    //Boolean fjern fungerer ikke, boolean indeks fungerer...
 
     @Override
     public T fjern(int indeks) {
-
-
-        throw new UnsupportedOperationException();
+        T verdi = hent(indeks);
+        fjern(verdi);
+        return verdi;
     }
 
     @Override
@@ -293,13 +309,26 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
     }
 
+    //Oppgave 8
     @Override
     public Iterator<T> iterator() {
-        throw new UnsupportedOperationException();
+        Iterator<T> iterator = new Iterator<T>() {
+            @Override
+            public boolean hasNext() {
+                return false;
+            }
+
+            @Override
+            public T next() {
+                return null;
+            }
+        };
+        return iterator;
     }
 
     public Iterator<T> iterator(int indeks) {
-        throw new UnsupportedOperationException();
+        indeksKontroll(indeks,true);
+
     }
 
     private class DobbeltLenketListeIterator implements Iterator<T> {
@@ -316,7 +345,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         //Oppgave 8
         private DobbeltLenketListeIterator(int indeks) {
-            throw new UnsupportedOperationException();
+            denne = finnNode(indeks);
         }
 
         @Override
@@ -326,7 +355,15 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         @Override
         public T next() {
-            throw new UnsupportedOperationException();
+            if(iteratorendringer != endringer){
+                throw new ConcurrentModificationException("Feil i endringer");
+            }
+            if (!hasNext()){
+                throw new NoSuchElementException("Has next error");
+            }
+            fjernOK = true;
+            denne.neste.verdi = denne.verdi;
+            return denne.verdi;
         }
 
         @Override

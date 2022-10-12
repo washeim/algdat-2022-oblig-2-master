@@ -30,4 +30,7 @@ I oppgave 4 lagret jeg hodet i en node. Deretter en variabel til indexen. Gårig
 så lengde verdien av noden min ikke er lik verdien og ikke null så legger jeg til en på telleren min pos.
 Deretter returnerer jeg -1 hvis den finnes i lista eller returnerer telleren hvis den finnes. Inneholder returnerer true hvis ikke tallet er -1,
 
-I oppgave 5 
+I oppgave 5 sjekker jeg om feil i indeksen. Så om den er 0 eller ikke. Hvis den er 0 så gjør jeg nye noden til hode. 
+Hvis den er over 0 lager jeg en midlertidig node som er hode, bruker for løkke til å gå helt frem til indeks noden og gjør
+den midlertidig noden til neste i lista. Når for løkka er ferdig gjør jeg den nye LeggInn noden til lik den midlertidige, og gire den neste og forrige verdier.
+
