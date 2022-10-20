@@ -1,9 +1,4 @@
-[D, E, F, G, H]
-[]
-[I, J]
-#[A, B, C, D, E, F, G, H, I, J, a]
-11
-&[a, A, B, C, D, E, F, G, H, I, J, a]
-12
-)[a, A, B, C, D, a, E, F, G, H, I, J, a]
-13
+0Oppgave 3a: Dette (1702 ms) gikk altfor sakte!
+5            Har du kodet metoden finnNode() riktig?
+-Oppgave 4a: Stygg feil! Du MÅ bruke equals
+9            og ikke == i sammenligningen i indeksTil()!

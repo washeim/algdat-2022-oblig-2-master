@@ -74,7 +74,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
     @Override
     public boolean tom() {
-        int antall = antall();
+        int antall = this.antall;
         if (antall == 0) {
             return true;
         } else {
@@ -144,29 +144,27 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     //Oppgave 3 a)
     private Node finnNode(int indeks) {
-        Node gjeldene = new Node(null);
-        int sjekk = antall/2;
-
-        if (indeks < sjekk) {
-            gjeldene = hode;
+        Node current = null;
+        int midten = antall/2;
+        if (indeks < midten) {
+            current = hode;
             for (int i = 0; i < indeks; i++) {
-                gjeldene = gjeldene.neste;
-            }
-        } else {
-            gjeldene = hale;
-            for (int i = antall-1; i > indeks; i--) {
-                gjeldene = gjeldene.forrige;
-            }
+                current = current.neste;}
         }
-        return gjeldene;
+        if (indeks > midten) {
+            current = hale;
+            for (int i = antall-1; i > indeks; i--) {
+                current = current.forrige;}
+        }
+
+        return current;
     }
+
     @Override
     public T hent(int indeks) {
         indeksKontroll(indeks, false);
-        T hentet;
         Node<T> newNode = finnNode(indeks);
-        hentet = newNode.verdi;
-        return hentet;
+        return newNode.verdi;
     }
     @Override
     public T oppdater(int indeks, T nyverdi) {
@@ -204,7 +202,11 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public int indeksTil(T verdi) {
         Node temp = hode;
         int pos = 0;
-        while (temp.verdi != verdi && temp.neste != null) {
+         //while (temp.verdi != verdi && temp.neste != null)
+        if (temp.verdi == null) {
+            pos = 0;
+        }
+        while (temp.verdi != verdi && temp.neste != null)  {
             temp = temp.neste;
             pos++;
         }
@@ -227,22 +229,23 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         if (verdi == null) {
             throw new NullPointerException("Verdi feil");
         }
-        if (indeks < 0) {
+        if (indeks < 0 || indeks > antall) {
             throw new IndexOutOfBoundsException("Feil i index");
         }
         Node<T> newNode = new Node(verdi);
         //tom
         if(tom() && indeks == 0) {
-            leggInn(verdi);
+            hode = newNode;
+            hale = newNode;
         }
         //ikke tom
-        if (!tom() && indeks == 0) {
+        if (indeks == 0 && !tom()) {
             hode.forrige = newNode;
             newNode.neste = hode;
             hode = newNode;
         }
         //Legges bakerst
-        if (indeks == antall && indeks > 0) {
+        if (indeks == antall) {
             hale.neste = newNode;
             newNode.forrige = hale;
             hale = newNode;
@@ -260,35 +263,77 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             newNode.neste = temp;
             temp.forrige = newNode;
         }
+        antall++;
+        endringer++;
     }
 
     //Oppgave 6
     @Override
-    public boolean fjern(T verdi) {
+    public T fjern(int indeks) {
+        T gammel = hent(indeks);
+        if(tom()) {
+            throw new NoSuchElementException("Tom liste");
+        }
+        if (gammel == null) {
+            throw new UnsupportedOperationException();}
+        if (!inneholder(gammel)) {
+            throw new NoSuchElementException("Finnes ikke i liste");
+        }
+
+        Node temp = null;
+        if (indeks == 0) {
+            temp = hode;
+            if (hode == hale) {
+                hale = null;
+            } else {
+                hode.neste.forrige = null;
+            }
+            hode = hode.neste;
+            temp.neste = null;
+        }
+        if (indeks == antall) {
+            temp = hale;
+            if (hode == hale){
+                hode = null;
+            } else {
+                hale.forrige.neste = null;
+            }
+            hale = hale.forrige;
+            temp.forrige = null;
+        } else {
+            Node previous = hode;
+            int count = 1;
+            while (count < indeks){
+                previous = previous.neste;
+                count++;
+            }
+            Node current = previous.neste;
+            previous.neste = current.neste;
+            current.neste = null;
+        }
         endringer++;
         antall--;
-        int indeks = indeksTil(verdi);
-        hent(indeks);
-        Node<T> temp = hode, forrige = null;
-        if (temp != null && temp.verdi == verdi) {
-            hode = null;
-            forrige.neste = temp.neste;
+        return gammel;
+    }
+    @Override
+    public boolean fjern(T verdi) {
+        if(tom()) {
+            throw new NoSuchElementException("Tom liste");
+        }
+        if (!inneholder(verdi)) {
+            return false;
+        }
+        Node temp = hode;
+        if (temp !=null && temp.verdi == verdi) {
+            hode = temp.neste;
+            return true;
         }
         while (temp != null && temp.verdi != verdi) {
-            forrige = temp;
             temp = temp.neste;
-            forrige.neste = temp.neste;
         }
-        if (verdi == null)
-            throw new UnsupportedOperationException();
+        endringer++;
+        antall--;
         return true;
-    }
-
-    @Override
-    public T fjern(int indeks) {
-        T verdi = hent(indeks);
-        fjern(verdi);
-        return verdi;
     }
 
     @Override
