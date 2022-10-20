@@ -14,11 +14,6 @@ class Oblig2Test {
         int antallFeil = 0;
         Liste<Integer> liste = new DobbeltLenketListe<>();
 
-        //egne tester
-
-
-        //^^ egne tester
-
         if (liste.antall() != 0) {
             antallFeil++;
             System.out.println("Oppgave 1a: Feil i metoden antall()!");
