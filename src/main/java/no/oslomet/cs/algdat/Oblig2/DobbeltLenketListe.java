@@ -34,7 +34,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     private int antall;            // antall noder i listen
     private int endringer;         // antall endringer i listen
 
-    public DobbeltLenketListe() {}
+    public DobbeltLenketListe() {
+    }
     public DobbeltLenketListe(T[] a) {
         if (a==null) {
             throw new NullPointerException("Tabellen a er null!");
@@ -55,6 +56,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             }
 
         }
+        antall();
     }
 
 
@@ -81,6 +83,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             return false;
         }
     }
+
     //Oppgave 2
     @Override
     public String toString() {
@@ -151,7 +154,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             for (int i = 0; i < indeks; i++) {
                 current = current.neste;}
         }
-        if (indeks > midten) {
+        if (indeks >= midten) {
             current = hale;
             for (int i = antall-1; i > indeks; i--) {
                 current = current.forrige;}
@@ -159,7 +162,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         return current;
     }
-
     @Override
     public T hent(int indeks) {
         indeksKontroll(indeks, false);
@@ -174,6 +176,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         if (indeks < 0 || indeks > antall) {
             throw new IndexOutOfBoundsException("Feil index");
         }
+        if (indeks == antall) {
+            throw new IndexOutOfBoundsException("Utenfor rekkevidde");
+        }
         Node<T> newNode = new Node(nyverdi);
         Node<T> erstatt = finnNode(indeks);
         T gammleVerdi = erstatt.verdi;
@@ -185,7 +190,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     //Oppgave 3 b)
     public Liste<T> subliste(int fra, int til) {
         Liste<T> list = new DobbeltLenketListe<>();
-        if ((fra <= til && fra >= 0 && til <= antall())) {
+        if(fratilKontroll(antall(), fra, til)) {
             int avstand = til - fra;
             for (int i = 0; i < avstand; i++) {
                 list.leggInn(hent(fra + i));
@@ -193,24 +198,32 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             this.antall = avstand;
             return list;
         } else {
-            throw new IndexOutOfBoundsException ("Fra eller Til utenfor rekkevidde");
+            throw new IllegalArgumentException("");
         }
+    }
+    private boolean fratilKontroll(int antall, int fra, int til) {
+        if (fra > til) {
+            throw new IllegalArgumentException("Fra er mer enn til");
+        }
+        if (fra < 0 || til > antall) {
+            throw new IndexOutOfBoundsException ("Fra eller Til utenfor rekkevidde " + antall + " " + antall());
+        }
+        return true;
     }
 
     //Oppgave 4
     @Override
     public int indeksTil(T verdi) {
+        if (tom()) {
+            return -1;
+        }
         Node temp = hode;
         int pos = 0;
-         //while (temp.verdi != verdi && temp.neste != null)
-        if (temp.verdi == null) {
-            pos = 0;
-        }
         while (temp.verdi != verdi && temp.neste != null)  {
             temp = temp.neste;
             pos++;
         }
-        if (temp.verdi != verdi)
+        if (!temp.verdi.equals(verdi))
             return -1;
         return (pos);
     }
@@ -226,11 +239,12 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     //Oppgave 5
     @Override
     public void leggInn(int indeks, T verdi) {
+        antall();
         if (verdi == null) {
             throw new NullPointerException("Verdi feil");
         }
         if (indeks < 0 || indeks > antall) {
-            throw new IndexOutOfBoundsException("Feil i index");
+            throw new IndexOutOfBoundsException("Feil i index " + indeks + " " + antall);
         }
         Node<T> newNode = new Node(verdi);
         //tom
