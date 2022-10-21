@@ -651,11 +651,14 @@ class Oblig2Test {
 
         if (!liste.toString().equals("[1, 2, 3, 4, 5, 6, 7]")) {
             antallFeil++;
+            System.out.println(liste.toString());
             System.out.println("Oppgave 5i: Feil i metoden leggInn()!");
         }
 
         if (!liste.omvendtString().equals("[7, 6, 5, 4, 3, 2, 1]")) {
             antallFeil++;
+            System.out.println(liste.omvendtString());
+
             System.out.println("Oppgave 5j: Feil i metoden leggInn()!");
         }
 
