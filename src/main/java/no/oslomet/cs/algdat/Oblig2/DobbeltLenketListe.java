@@ -1,10 +1,11 @@
-package no.oslomet.cs.algdat.Oblig2;
+
+        package no.oslomet.cs.algdat.Oblig2;
 
 
 ////////////////// class DobbeltLenketListe //////////////////////////////
 
 
-import java.util.*;
+        import java.util.*;
 
 
 public class DobbeltLenketListe<T> implements Liste<T> {
@@ -328,15 +329,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         if (!inneholder(verdi)) {
             return false;
         }
-        Node current = hode, temp = null;
-        while (current != null && current.verdi != verdi) {
-            temp = current;
-            current = current.neste;
-        }
-        if (current == null) return true;
-        temp.neste = current.neste;
-        endringer++;
-        antall--;
+        int indeks= indeksTil(verdi);
+        fjern(indeks);
         return true;
     }
 
@@ -415,5 +409,3 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
 } // class DobbeltLenketListe
-
-
