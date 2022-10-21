@@ -358,7 +358,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     public Iterator<T> iterator(int indeks) {
         indeksKontroll(indeks,true);
-        DobbeltLenketListeIterator dL = new DobbeltLenketListeIterator();
+        DobbeltLenketListeIterator dL = new DobbeltLenketListeIterator(indeks);
         return dL;
     }
 
